@@ -1,12 +1,19 @@
 package com.company;
 
-import jdk.jshell.spi.ExecutionControlProvider;
-
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+//database.createTable(connection, "employee");
+//database.insert_row(connection, "employee", "Zhan", "Astana");
+//database.update_name(connection, "employee", "Daulet", "Zhan" );
+//database.read_data(connection, "employee");
+//database.search_by_name(connection, "employee", "Zhan");
+//database.search_by_id(connection, "employee", 1);
+//database.delete_row_by_id(connection, "employee", 2);
+//database.read_data(connection, "employee");
+//database.delete_table(connection, "employee");
 
 public class DBMethods {
     public Connection connect_to_DB(String DBName, String Username, String password ){
@@ -27,7 +34,7 @@ public class DBMethods {
     public void createTable(Connection connection, String table_name){
         Statement stmt;
         try{
-            String query = "create table " + table_name + "(empid SERIAL, name varchar(200), address varchar(200), primary key(empid));";
+            String query = "create table " + table_name + "(id SERIAL, name varchar(200), address varchar(200), primary key(empid));";
             stmt = connection.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Table Created");
@@ -43,18 +50,6 @@ public class DBMethods {
             stmt = connection.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Row Inserted");
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-
-    public void delete_row_by_name(Connection connection, String table_name, String name){
-        Statement stmt;
-        try{
-            String query = String.format("delete from %s where name = '%s'", table_name, name);
-            stmt = connection.createStatement();
-            stmt.executeUpdate(query);
-            System.out.println("Data Deleted");
         }catch(Exception e){
             System.out.println(e);
         }
@@ -79,7 +74,7 @@ public class DBMethods {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
             while(rs.next()){
-                System.out.print(rs.getString("empid") + " ");
+                System.out.print(rs.getString("id") + " ");
                 System.out.print(rs.getString("name")+ " ");
                 System.out.println(rs.getString("address")+ " ");
             }
@@ -110,7 +105,7 @@ public class DBMethods {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
             while(rs.next()){
-                System.out.print(rs.getString("empid") + " ");
+                System.out.print(rs.getString("id") + " ");
                 System.out.print(rs.getString("name") + " ");
                 System.out.println(rs.getString("address") + " ");
             }
@@ -123,11 +118,11 @@ public class DBMethods {
         Statement stmt;
         ResultSet rs = null;
         try{
-            String query = String.format("select * from %s where empid = '%s'",table_name, id);
+            String query = String.format("select * from %s where id = '%s'",table_name, id);
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
             while(rs.next()){
-                System.out.print(rs.getString("empid") + " ");
+                System.out.print(rs.getString("id") + " ");
                 System.out.print(rs.getString("name") + " ");
                 System.out.println(rs.getString("address") + " ");
             }
