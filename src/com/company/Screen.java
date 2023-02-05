@@ -26,10 +26,11 @@ public class Screen {
         int choice = input.nextInt();
         switch(choice){
             case 1:
-                //sign in as client
-                    //
+                //sign up as client
+
             case 2:
                 //sign in as admin
+
             default:
                 System.out.println("UNKNOWN COMMAND\n");
                 MainScreen();
@@ -37,6 +38,7 @@ public class Screen {
     }
 
     public void caseTwo(){
-        //sign up
+        SignUp signUp = new SignUp();
+        signUp.user_input();
     }
 }
