@@ -27,6 +27,7 @@ public class Screen {
         switch(choice){
             case 1:
                 //sign in as client
+                    //
             case 2:
                 //sign in as admin
             default:
