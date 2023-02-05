@@ -2,13 +2,13 @@ package com.company;
 
 public abstract class Person{
     private String firstname, lastname;
-    private int number;
+    private String phone_number;
     private String password;
 
-    Person(String firstname, String lastname, int number, String password){
+    Person(String firstname, String lastname, String phone_number, String password){
         setFirstname(firstname);
         setLastname(lastname);
-        setNumber(number);
+        setPhone_number(phone_number);
         setPassword(password);
     }
 
@@ -26,11 +26,11 @@ public abstract class Person{
         return lastname;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setPhone_number(String number) {
+        this.phone_number = number;
     }
-    public int getNumber() {
-        return number;
+    public String getPhone_number() {
+        return phone_number;
     }
 
     public void setPassword(String password) {

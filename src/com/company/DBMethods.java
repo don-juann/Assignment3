@@ -31,34 +31,23 @@ public class DBMethods {
         }
         return connection;
     }
-    public void createTable(Connection connection, String table_name){
+
+    public void insert_row(Connection connection, String firstname, String lastname, String phone_number, String DateOfBirth, String password){
         Statement stmt;
+        String table_name = "client";
         try{
-            String query = "create table " + table_name + "(id SERIAL, name varchar(200), address varchar(200), primary key(empid));";
+            String query = String.format("insert into %s(firstname, lastname, phone_number, DateOfBirth, password) values('%s','%s','%s','%s','%s');", table_name, firstname, lastname, phone_number, DateOfBirth, password);
             stmt = connection.createStatement();
             stmt.executeUpdate(query);
-            System.out.println("Table Created");
         }catch(Exception e){
             System.out.println(e);
         }
     }
 
-    public void insert_row(Connection connection, String table_name, String name, String address){
+    public void delete_row_by_id(Connection connection, String table_name, int client_id){
         Statement stmt;
         try{
-            String query = String.format("insert into %s(name, address) values('%s','%s');", table_name, name, address);
-            stmt = connection.createStatement();
-            stmt.executeUpdate(query);
-            System.out.println("Row Inserted");
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-
-    public void delete_row_by_id(Connection connection, String table_name, int id){
-        Statement stmt;
-        try{
-            String query = String.format("delete from %s where empid = '%s'", table_name, id);
+            String query = String.format("delete from %s where client_id = '%s'", table_name, client_id);
             stmt = connection.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Data Deleted");

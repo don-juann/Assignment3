@@ -1,23 +1,26 @@
 package com.company;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class Client extends Person{
     private int client_id;
-    private int age;
+    private String DateOfBirth;
     private double balance;
 
-    public Client(String firstname, String lastname, int number, String password, String DateOfBirth) {
-        super(firstname, lastname, number, password);
-        setAge(calculateAge(LocalDate.parse(DateOfBirth)));
+    public Client(String firstname, String lastname, String phone_number, String DateOfBirth, String password) {
+        super(firstname, lastname, phone_number, password);
+        setDateOfBirth(DateOfBirth);
         setPassword(password);
     }
-    public int getAge() {
-        return age;
+
+    public String getDateOfBirth() {
+        return DateOfBirth;
     }
-    public void setAge(int age) {
-        this.age = age;
+
+    public void setDateOfBirth(String dateOfBirth) {
+        DateOfBirth = dateOfBirth;
     }
 
     public double getBalance() {
@@ -27,7 +30,6 @@ public class Client extends Person{
         this.balance = balance;
     }
 
-
     public int calculateAge(LocalDate dob) {
         LocalDate currentDate = LocalDate.now();
         if (dob != null) {
@@ -35,5 +37,10 @@ public class Client extends Person{
         } else {
             return 0;
         }
+    }
+    public void setFields(){
+        DBMethods database = new DBMethods();
+        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "0311");
+        database.insert_row(connection, getFirstname(), getLastname(), getPhone_number(), getDateOfBirth(), getPassword());
     }
 }

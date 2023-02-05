@@ -26,7 +26,7 @@ public class Screen {
         int choice = input.nextInt();
         switch(choice){
             case 1:
-                //sign up as client
+                //sign in as client
 
             case 2:
                 //sign in as admin
