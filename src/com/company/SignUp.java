@@ -9,10 +9,10 @@ public class SignUp {
         String[] names = line.split(" ");
         String firstname = names[0];
         String lastname = names[1];
-
+        String phone_number_str = input.next();
+        int phone_number = Integer.parseInt(phone_number_str);
         System.out.print("Date of Birth (YYYY-MM-DD): ");
         String DateOfBirth = input.nextLine();
-
         password_check();
     }
     public void password_check(){
