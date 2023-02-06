@@ -14,72 +14,71 @@ import java.util.Objects;
 //database.delete_table(connection, "employee");
 
 public class DBMethods {
-    public Connection connect_to_DB(String DBName, String Username, String password ){
-        Connection connection = null;
-        try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+DBName, Username, password);
-            if(connection!=null){
-                System.out.println(" ");
-            }else{
-                System.out.println("Connection failed");
+    public Connection connect_to_DB(String DBName, String Username, String password ){  //method to connect to the database
+        Connection connection = null;   //creating a connection object
+        try {   //try block
+            Class.forName("org.postgresql.Driver"); //loading the driver
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+DBName, Username, password);   //connecting to the database
+            if(connection!=null){   //if the connection is not null
+                System.out.println(" ");    //print a blank line
+            }else{  //if the connection is null
+                System.out.println("Connection failed");    //print a message
+            }   //end of if statement
+        } catch (Exception e) { //catch block
+            System.out.println(e);  //print the exception
+        }
+        return connection;  //return the connection
+    }
+
+
+
+    public void insert_row(Connection connection, String firstname, String lastname, String phone_number, String DateOfBirth, String password){ //method to insert a row into the table
+        Statement stmt; //creating a statement object
+        String table_name = "client";   //creating a string variable to store the table name
+        try{    //try block
+            String query = String.format("insert into %s(firstname, lastname, phone_number, DateOfBirth, password) values('%s','%s','%s','%s','%s');", table_name, firstname, lastname, phone_number, DateOfBirth, password);   //creating a string variable to store the query
+            stmt = connection.createStatement();    //creating a statement object
+            stmt.executeUpdate(query);  //executing the query
+        }catch(Exception e){        //catch block
+            System.out.println(e);  //print the exception
+        }   //end of try-catch block
+    }
+
+
+    public void read_data(Connection connection, String table_name){    //method to read data from the table
+        Statement stmt; //creating a statement object
+        ResultSet rs = null;    //creating a result set object
+        try{    //try block
+            String query = String.format("select * from %s", table_name);   //creating a string variable to store the query
+            stmt = connection.createStatement();    //creating a statement object
+            rs = stmt.executeQuery(query);  //executing the query
+            while(rs.next()){   //while loop
+                System.out.print(rs.getString("client_id") + " ");  //print the client_id
+                System.out.print(rs.getString("firstname")+ " ");   //print the firstname
+                System.out.println(rs.getString("lastname")+ " ");  //print the lastname
+                System.out.println(rs.getString("phone_number")+ " ");  //print the phone_number
+                System.out.println(rs.getString("DateOfBirth")+ " ");   //print the DateOfBirth
             }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return connection;
-    }
 
 
-
-    public void insert_row(Connection connection, String firstname, String lastname, String phone_number, String DateOfBirth, String password){
-        Statement stmt;
-        String table_name = "client";
-        try{
-            String query = String.format("insert into %s(firstname, lastname, phone_number, DateOfBirth, password) values('%s','%s','%s','%s','%s');", table_name, firstname, lastname, phone_number, DateOfBirth, password);
-            stmt = connection.createStatement();
-            stmt.executeUpdate(query);
-        }catch(Exception e){
-            System.out.println(e);
+        }catch(Exception e){    //catch block
+            System.out.println(e);  //print the exception
         }
     }
 
-
-    public void read_data(Connection connection, String table_name){
-        Statement stmt;
-        ResultSet rs = null;
-        try{
-            String query = String.format("select * from %s", table_name);
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery(query);
-            while(rs.next()){
-                System.out.print(rs.getString("client_id") + " ");
-                System.out.print(rs.getString("firstname")+ " ");
-                System.out.println(rs.getString("lastname")+ " ");
-                System.out.println(rs.getString("phone_number")+ " ");
-                System.out.println(rs.getString("DateOfBirth")+ " ");
-            }
-
-
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-
-    public boolean check1(Connection connection, String phone_number, String password) throws SQLException{
-        Statement stmt;
-        ResultSet rs = null;
-        String table_name = "client";
-        String query = String.format("select password from %s where phone_number = '%s'",table_name, phone_number);
-        stmt = connection.createStatement();
-
-        rs = stmt.executeQuery(query);
-        if(Objects.equals(rs.getString("password"), password) ){
-            System.out.println("rs equal to password");
-            return true;
+    public boolean check1(Connection connection, String phone_number, String password) throws SQLException{     //method to check if the phone number and password are correct
+        Statement stmt; //creating a statement object
+        ResultSet rs = null;    //creating a result set object
+        String table_name = "client";       //creating a string variable to store the table name
+        String query = String.format("select password from %s where phone_number = '%s'",table_name, phone_number);  //creating a string variable to store the query
+        stmt = connection.createStatement();    //creating a statement object
+        rs = stmt.executeQuery(query);  //executing the query
+        if(Objects.equals(rs.getString("password"), password) ){    //if the password is correct
+            System.out.println("rs equal to password");   //print a message
+            return true;    //return true
         }
 
-        return false;
+        return false;   //return false
     }
 }
 

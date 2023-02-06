@@ -2,8 +2,8 @@ package com.company;
 
 public class Main {
     public static void main(String[] args) {
-        Screen screen = new Screen();
-        screen.MainScreen();
+        Screen screen = new Screen();   //creating an object of the Screen class
+        screen.MainScreen();    //calling the MainScreen method of the Screen class
 
 /*
         Below is a program we used only once to create tables in our localhost database, table "client" was made in a similar way.
