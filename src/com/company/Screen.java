@@ -1,5 +1,6 @@
 package com.company;
 
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class Screen {
@@ -26,7 +27,7 @@ public class Screen {
         int choice = input.nextInt();
         switch(choice){
             case 1:
-                //sign in as client
+
 
             case 2:
                 //sign in as admin
@@ -41,7 +42,6 @@ public class Screen {
         SignUp signUp = new SignUp();
         signUp.user_input();
     }
-
     public void UserScreen(){
         Scanner input = new Scanner(System.in);
         System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Deposit/Withdraw Balance");
@@ -49,12 +49,16 @@ public class Screen {
         int choice = input.nextInt();
         switch(choice){
             case 1:
+                DBMethods db = new DBMethods();
+                Connection connection = db.connect_to_DB("DatabaseOne", "posrgres", "pgadmin");
+                db.read_data(connection, "client");
             case 2:
+                //show balance
             case 3:
+                //bank operations
             default:
                 System.out.println("UNKNOWN COMMAND");
                 UserScreen();
         }
     }
-
 }

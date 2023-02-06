@@ -34,7 +34,7 @@ public class SignUp {
 
         if(Objects.equals(password1, password2)){
             thepassword = password2;
-            System.out.println("*******************************");
+            System.out.println("\n*******************************");
             System.out.println("NEW USER SUCCESSFULLY SIGNED UP");
             System.out.println("*******************************\n");
         }else{

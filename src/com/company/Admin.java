@@ -5,8 +5,12 @@ public class Admin extends Person{
 
     Admin(){
         //no argument
-    };
+    }
     Admin(String firstname, String lastname, String phone_number, String password) {
         super(firstname, lastname, phone_number, password);
+    }
+    @Override
+    public  boolean signin_check(String number, String password) {
+        return true;
     }
 }

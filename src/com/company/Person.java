@@ -1,6 +1,6 @@
 package com.company;
 
-public abstract class Person{
+public abstract class Person implements IPerson{
     private String firstname, lastname;
     private String phone_number;
     private String password;
@@ -42,4 +42,8 @@ public abstract class Person{
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public abstract boolean signin_check(String phone_number, String password) throws Exception;
+
 }
