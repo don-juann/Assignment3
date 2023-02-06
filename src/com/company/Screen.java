@@ -41,4 +41,20 @@ public class Screen {
         SignUp signUp = new SignUp();
         signUp.user_input();
     }
+
+    public void UserScreen(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Deposit/Withdraw Balance");
+        System.out.print("Choose option: ");
+        int choice = input.nextInt();
+        switch(choice){
+            case 1:
+            case 2:
+            case 3:
+            default:
+                System.out.println("UNKNOWN COMMAND");
+                UserScreen();
+        }
+    }
+
 }

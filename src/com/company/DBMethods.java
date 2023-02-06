@@ -32,9 +32,9 @@ public class DBMethods {
         return connection;
     }
 
-    public void insert_row(Connection connection, String firstname, String lastname, String phone_number, String DateOfBirth, String password){
+    public void insert_row(Connection connection, String firstname, String lastname, String phone_number,String DateOfBirth, String password){
         Statement stmt;
-        String table_name = "client";
+        String table_name = "admin";
         try{
             String query = String.format("insert into %s(firstname, lastname, phone_number, DateOfBirth, password) values('%s','%s','%s','%s','%s');", table_name, firstname, lastname, phone_number, DateOfBirth, password);
             stmt = connection.createStatement();
@@ -42,6 +42,23 @@ public class DBMethods {
         }catch(Exception e){
             System.out.println(e);
         }
+    }
+    public int search_by_phone_number(Connection connection, String phone_number){
+        Statement stmt;
+        String table_name = "client";
+        ResultSet rs = null;
+        int count = 0;
+        try{
+            String query = String.format("select * from %s where name = '%s'",table_name, phone_number);
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(query);
+            while(rs.next()){
+                count++;
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return count;
     }
 
     public void delete_row_by_id(Connection connection, String table_name, int client_id){
@@ -86,22 +103,7 @@ public class DBMethods {
         }
     }
 
-    public void search_by_name(Connection connection, String table_name, String name){
-        Statement stmt;
-        ResultSet rs = null;
-        try{
-            String query = String.format("select * from %s where name = '%s'",table_name, name);
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery(query);
-            while(rs.next()){
-                System.out.print(rs.getString("id") + " ");
-                System.out.print(rs.getString("name") + " ");
-                System.out.println(rs.getString("address") + " ");
-            }
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
+
 
     public void search_by_id(Connection connection, String table_name, int id){
         Statement stmt;

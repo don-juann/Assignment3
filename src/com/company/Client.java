@@ -9,7 +9,10 @@ public class Client extends Person{
     private String DateOfBirth;
     private double balance;
 
-    public Client(String firstname, String lastname, String phone_number, String DateOfBirth, String password) {
+    Client(){
+        //no argument
+    };
+    Client(String firstname, String lastname, String phone_number, String DateOfBirth, String password) {
         super(firstname, lastname, phone_number, password);
         setDateOfBirth(DateOfBirth);
         setPassword(password);
@@ -38,6 +41,7 @@ public class Client extends Person{
             return 0;
         }
     }
+
     public void setFields(){
         DBMethods database = new DBMethods();
         Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "0311");

@@ -5,6 +5,9 @@ public abstract class Person{
     private String phone_number;
     private String password;
 
+    Person(){
+        //no argument
+    }
     Person(String firstname, String lastname, String phone_number, String password){
         setFirstname(firstname);
         setLastname(lastname);
