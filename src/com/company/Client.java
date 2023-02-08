@@ -46,18 +46,10 @@ public class Client extends Person{ //inheritance
     }
 
     @Override
-    public boolean signin_check(String phone_number, String password) throws Exception {    //overriding the Person class method
-        DBMethods database = new DBMethods();   //creating an object of the DBMethods class
-        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "pgadmin");   //connecting to the database
-
-        // int sign_in_id = database.get_id_by_phone_number_client(connection, phone_number);
-
-        if(database.check1(connection, phone_number, password)){    //if the phone number and password are correct
-            return true;    //return true
-        } else {    //if the phone number and password are not correct
-            return false;   //return false
-        }
-
+    public boolean signin_check(String phone_number, String password) throws SQLException {
+        DBMethods database = new DBMethods();
+        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "pgadmin");
+        return database.checkClient(connection, phone_number, password);
     }
 
     public void setFields(){    //method to set the fields of the client

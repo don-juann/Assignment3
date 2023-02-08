@@ -1,5 +1,7 @@
 package com.company;
 
+import java.sql.Connection;
+
 public class Admin extends Person{
     private int admin_id;
 
@@ -9,8 +11,10 @@ public class Admin extends Person{
     Admin(String firstname, String lastname, String phone_number, String password) {
         super(firstname, lastname, phone_number, password);
     }
-    @Override //overriding the Person class method
-    public  boolean signin_check(String number, String password) {
-        return true;
-    }//end of signin_check method
+    @Override
+    public  boolean signin_check(String phone_number, String password) throws Exception {
+        DBMethods database = new DBMethods();
+        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "pgadmin");
+        return database.checkAdmin(connection, phone_number, password);
+    }
 }

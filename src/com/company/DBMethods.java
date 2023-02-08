@@ -66,19 +66,20 @@ public class DBMethods {
         }
     }
 
-    public boolean check1(Connection connection, String phone_number, String password) throws SQLException{     //method to check if the phone number and password are correct
-        Statement stmt; //creating a statement object
-        ResultSet rs = null;    //creating a result set object
-        String table_name = "client";       //creating a string variable to store the table name
-        String query = String.format("select password from %s where phone_number = '%s'",table_name, phone_number);  //creating a string variable to store the query
-        stmt = connection.createStatement();    //creating a statement object
-        rs = stmt.executeQuery(query);  //executing the query
-        if(Objects.equals(rs.getString("password"), password) ){    //if the password is correct
-            System.out.println("rs equal to password");   //print a message
-            return true;    //return true
-        }
+    public boolean checkClient(Connection connection,String phone_number, String password) throws SQLException {
+        String query = String.format("select password from client where phone_number = '%s'",phone_number);
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        return Objects.equals(rs.getString("password"), password);
+    }
 
-        return false;   //return false
+    public boolean checkAdmin(Connection connection,String phone_number, String password) throws SQLException {
+        String query = String.format("select password from admin where phone_number = '%s'",phone_number);
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        return Objects.equals(rs.getString("password"), password);
     }
 }
 
