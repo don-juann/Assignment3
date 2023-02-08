@@ -14,7 +14,7 @@ public class Admin extends Person{
     @Override
     public  boolean signin_check(String phone_number, String password) throws Exception {
         DBMethods database = new DBMethods();
-        int d = 0;
+        //int d = 0;
         Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "pgadmin");
         return database.checkAdmin(connection, phone_number, password);
     }
