@@ -70,6 +70,7 @@ public class DBMethods {
         String query = String.format("select password from client where phone_number = '%s'",phone_number);
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        //int d = 0;
         rs.next();
         return Objects.equals(rs.getString("password"), password);
     }
