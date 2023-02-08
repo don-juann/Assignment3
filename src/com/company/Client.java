@@ -1,13 +1,14 @@
 package com.company;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class Client extends Person{ //inheritance
-    private int client_id;
+    private int id;
     private String DateOfBirth;
     private double balance;
 
@@ -63,5 +64,20 @@ public class Client extends Person{ //inheritance
         DBMethods database = new DBMethods();   //creating an object of the DBMethods class
         Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "pgadmin");   //connecting to the database
         database.insert_row(connection, getFirstname(), getLastname(), getPhone_number(), getDateOfBirth(), getPassword());  //inserting the client's details into the database
+    }
+    private static int checkBalance(Connection connection, int clientId) throws SQLException {  //method to check the balance of the client
+        String sql = "SELECT balance FROM clients WHERE id = ?";   //sql query to get the balance of the client
+        PreparedStatement statement = connection.prepareStatement(sql); //preparing the statement
+        statement.setInt(1, clientId);  //setting the value of the client id
+        ResultSet resultSet = statement.executeQuery();   //executing the query
+
+        if (resultSet.next()) { //if the result set is not empty
+            int balance = resultSet.getInt("balance");  //getting the balance of the client
+            System.out.println("Your balance is: " + balance);  //printing the balance of the client
+            return balance; //returning the balance of the client
+        } else {
+            System.out.println("Failed to retrieve balance. Please try again.");    //printing a message
+            return -1;  //returning -1
+        }
     }
 }
