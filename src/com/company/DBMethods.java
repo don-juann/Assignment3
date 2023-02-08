@@ -1,6 +1,8 @@
 package com.company;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 //database.createTable(connection, "employee");
@@ -45,32 +47,49 @@ public class DBMethods {
     }
 
 
-    public void read_data(Connection connection, String table_name){    //method to read data from the table
+    public void read_data_of_client(Connection connection, String phone_number){   //method to read data from the table
         Statement stmt; //creating a statement object
         ResultSet rs = null;    //creating a result set object
+        String table_name = "client";
         try{    //try block
-            String query = String.format("select * from %s", table_name);   //creating a string variable to store the query
+            String query = String.format("select * from %s where phone_number = '%s'", table_name, phone_number);  //creating a string variable to store the query
             stmt = connection.createStatement();    //creating a statement object
             rs = stmt.executeQuery(query);  //executing the query
-            while(rs.next()){   //while loop
-                System.out.print(rs.getString("client_id") + " ");  //print the client_id
+            if (rs.next()) {
+                System.out.println("ID: " + rs.getString("id"));  //print the client_id
                 System.out.print(rs.getString("firstname")+ " ");   //print the firstname
-                System.out.println(rs.getString("lastname")+ " ");  //print the lastname
-                System.out.println(rs.getString("phone_number")+ " ");  //print the phone_number
-                System.out.println(rs.getString("DateOfBirth")+ " ");   //print the DateOfBirth
-            }
-
-
+                System.out.println(rs.getString("lastname"));  //print the lastname
+                System.out.println("Phone Number: " + rs.getString("phone_number"));  //print the phone_number
+                System.out.println("Age:" + calculateAge(LocalDate.parse(rs.getString("DateOfBirth")))+ " years old");   //print the DateOfBirth
+                }
         }catch(Exception e){    //catch block
             System.out.println(e);  //print the exception
         }
     }
 
+    public void read_data_of_clients(Connection connection){   //method to read data from the table
+        Statement stmt; //creating a statement object
+        ResultSet rs = null;    //creating a result set object
+        String table_name = "client";
+        try{    //try block
+            String query = String.format("select * from %s", table_name);  //creating a string variable to store the query
+            stmt = connection.createStatement();    //creating a statement object
+            rs = stmt.executeQuery(query);  //executing the query
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getString("id"));  //print the client_id
+                System.out.print(rs.getString("firstname")+ " ");   //print the firstname
+                System.out.println(rs.getString("lastname"));  //print the lastname
+                System.out.println("Phone Number: " + rs.getString("phone_number"));  //print the phone_number
+                System.out.println("Age:" + calculateAge(LocalDate.parse(rs.getString("DateOfBirth")))+ " years old\n");   //print the DateOfBirth
+            }
+        }catch(Exception e){    //catch block
+            System.out.println(e);  //print the exception
+        }
+    }
     public boolean checkClient(Connection connection,String phone_number, String password) throws SQLException {
         String query = String.format("select password from client where phone_number = '%s'",phone_number);
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-       // int d = 0;
         rs.next();
         return Objects.equals(rs.getString("password"), password);
     }
@@ -82,13 +101,11 @@ public class DBMethods {
         rs.next();
         return Objects.equals(rs.getString("password"), password);
     }
-}
 
-/*
-        public void delete_row_by_id(Connection connection, String table_name, int client_id){
+    public void delete_row_by_id(Connection connection, String table_name, int id){
         Statement stmt;
         try{
-            String query = String.format("delete from %s where client_id = '%s'", table_name, client_id);
+            String query = String.format("delete from %s where id = '%s'", table_name, id);
             stmt = connection.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Data Deleted");
@@ -96,4 +113,16 @@ public class DBMethods {
             System.out.println(e);
         }
     }
+    public int calculateAge(LocalDate dob) {    //method to calculate the age of the client
+        LocalDate currentDate = LocalDate.now();    //getting the current date
+        if (dob != null) {  //if the date of birth is not null
+            return Period.between(dob, currentDate).getYears();     //return the age of the client
+        } else {    //if the date of birth is null
+            return 0;   //return 0
+        }
+    }
+}
+
+/*
+
 * */

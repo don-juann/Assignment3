@@ -1,5 +1,7 @@
 package com.company;
 
+import java.sql.SQLException;
+
 public abstract class Person implements IPerson{
     private String firstname, lastname; //firstname and lastname are reserved words in SQL, so we use "firstname" and "lastname" instead
     private String phone_number;    //phone number is a reserved word in SQL, so we use "phone_number" instead
@@ -44,6 +46,6 @@ public abstract class Person implements IPerson{
     }   //end of getter method
 
     @Override   //overriding the IPerson interface method
-    public abstract boolean signin_check(String phone_number, String password) throws Exception;    //method to check if the user is signed in
+    public abstract boolean signin_check(String phone_number, String password) throws SQLException;    //method to check if the user is signed in
 
 }

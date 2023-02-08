@@ -48,14 +48,13 @@ public class Client extends Person{ //inheritance
     @Override
     public boolean signin_check(String phone_number, String password) throws SQLException {
         DBMethods database = new DBMethods();
-       // int d = 0;
-        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "pgadmin");
+        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "0311");
         return database.checkClient(connection, phone_number, password);
     }
 
     public void setFields(){    //method to set the fields of the client
         DBMethods database = new DBMethods();   //creating an object of the DBMethods class
-        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "pgadmin");   //connecting to the database
+        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "0311");   //connecting to the database
         database.insert_row(connection, getFirstname(), getLastname(), getPhone_number(), getDateOfBirth(), getPassword());  //inserting the client's details into the database
     }
     private static int checkBalance(Connection connection, int clientId) throws SQLException {  //method to check the balance of the client

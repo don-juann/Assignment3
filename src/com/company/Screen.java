@@ -11,7 +11,7 @@ public class Screen {
         int choice = input.nextInt();   //getting the user input
         switch(choice){ //switch statement
             case 1: //if the user chooses 1
-                caseOne();      //calling the caseOne method
+                caseOne();    //calling the caseOne method
             case 2: //if the user chooses 2
                 caseTwo();    //calling the caseTwo method
             default:    //if the user chooses something else
@@ -27,12 +27,14 @@ public class Screen {
         int choice = input.nextInt();   //getting the user input
         switch(choice){ //switch statement
             case 1: //if the user chooses 1
-                SignIn signIn = new SignIn();   //creating an object of the SignIn class
-                signIn.user_input();    //calling the user_input method of the SignIn class
-                UserScreen();   //calling the UserScreen method
+                SignIn signin = new SignIn();   //creating an object of the SignIn class
+                signin.user_input();    //calling the user_input method of the SignIn class
+                UserScreen("null");   //calling the UserScreen method
 
             case 2:
-                //sign in as admin
+                SignIn signin2 = new SignIn();
+                signin2.admin_input();
+                AdminScreen();
 
             default:
                 System.out.println("UNKNOWN COMMAND\n");
@@ -44,7 +46,7 @@ public class Screen {
         SignUp signUp = new SignUp();   //creating an object of the SignUp class
         signUp.user_input();    //calling the user_input method of the SignUp class
     }
-    public void UserScreen(){   //method for the user screen
+    public void UserScreen(String phone_number){   //method for the user screen
         Scanner input = new Scanner(System.in); //creating an object of the Scanner class
         System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Deposit/Withdraw Balance");    //printing the user screen
         System.out.print("Choose option: ");    //printing the option to choose
@@ -52,15 +54,37 @@ public class Screen {
         switch(choice){ //switch statement
             case 1:
                 DBMethods db = new DBMethods(); //creating an object of the DBMethods class
-                Connection connection = db.connect_to_DB("DatabaseOne", "posrgres", "pgadmin"); //creating an object of the Connection class
-                db.read_data(connection, "client");
+                Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
+                db.read_data_of_client(connection, phone_number);
+                System.out.print("\n");
+                UserScreen("null");
             case 2:
                 //show balance
             case 3:
                 //bank operations
             default:
                 System.out.println("UNKNOWN COMMAND");      //printing the error message
-                UserScreen();   //calling the UserScreen method
+                UserScreen("null");   //calling the UserScreen method
+        }
+    }
+
+    public void AdminScreen(){
+        Scanner input = new Scanner(System.in); //creating an object of the Scanner class
+        System.out.println("TAZA - ONLINE BANK\n1)Show All Clients Information\n2)Delete User\n");    //printing the user screen
+        System.out.print("Choose option: ");    //printing the option to choose
+        int choice = input.nextInt();   //getting the user input
+        switch(choice){ //switch statement
+            case 1:
+                DBMethods db = new DBMethods(); //creating an object of the DBMethods class
+                Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
+                db.read_data_of_clients(connection);
+                System.out.print("\n");
+                UserScreen("null");
+            case 2:
+                //show balance
+            default:
+                System.out.println("UNKNOWN COMMAND");      //printing the error message
+                AdminScreen();   //calling the UserScreen method
         }
     }
 }
