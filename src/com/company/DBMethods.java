@@ -90,16 +90,22 @@ public class DBMethods {
         String query = String.format("select password from client where phone_number = '%s'",phone_number);
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-        rs.next();
-        return Objects.equals(rs.getString("password"), password);
+        if(rs.next()){
+            return Objects.equals(rs.getString("password"), password);
+        }else{
+            return false;
+        }
     }
 
     public boolean checkAdmin(Connection connection,String phone_number, String password) throws SQLException {
         String query = String.format("select password from admin where phone_number = '%s'",phone_number);
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-        rs.next();
-        return Objects.equals(rs.getString("password"), password);
+        if(rs.next()){
+            return Objects.equals(rs.getString("password"), password);
+        }else{
+            return false;
+        }
     }
 
     public void delete_row_by_id(Connection connection, String table_name, int id){
