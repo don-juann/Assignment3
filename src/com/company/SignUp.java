@@ -27,7 +27,7 @@ public class SignUp {
     }
     public void password_check(){   //method to check if the passwords match
         Scanner input = new Scanner(System.in); //scanner object
-        System.out.print("Enter your new password: ");  //prompt user to enter password
+        System.out.print("Enter your new password: ");  //prompt user to enter password.
         String password1 = input.nextLine();    //read user input
         System.out.print("Enter your new password again: ");    //prompt user to enter password again
         String password2 = input.next();    //read user input

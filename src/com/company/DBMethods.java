@@ -61,7 +61,7 @@ public class DBMethods {
                 System.out.println(rs.getString("lastname"));  //print the lastname
                 System.out.println("Phone Number: " + rs.getString("phone_number"));  //print the phone_number
                 System.out.println("Age:" + calculateAge(LocalDate.parse(rs.getString("DateOfBirth")))+ " years old");   //print the DateOfBirth
-                }
+            }
         }catch(Exception e){    //catch block
             System.out.println(e);  //print the exception
         }
@@ -131,4 +131,4 @@ public class DBMethods {
 
 /*
 
-* */
+ * */
