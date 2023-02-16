@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Screen {
     public void MainScreen(){   //main screen method
         Scanner input = new Scanner(System.in); //creating an object of the Scanner class
-        System.out.println("TAZA - ONLINE BANK\n1)SIGN IN\n2)SIGN UP");   //printing the main screen
+        System.out.println("TAZA - ONLINE BANK\n1)SIGN IN\n2)SIGN UP\n3)EXIT");   //printing the main screen
         System.out.print("Choose option: ");    //printing the option to choose
         int choice = input.nextInt();   //getting the user input
         switch(choice){ //switch statement
@@ -14,8 +14,10 @@ public class Screen {
                 caseOne();    //calling the caseOne method
             case 2: //if the user chooses 2
                 caseTwo();    //calling the caseTwo method
+            case 3:
+                System.exit(0);
             default:    //if the user chooses something else
-                System.out.println("UNKNOWN COMMAND");  //printing the error message
+                System.out.println("UNKNOWN COMMAND\n");  //printing the error message
                 MainScreen();   //calling the MainScreen method
         }
     }
@@ -63,7 +65,7 @@ public class Screen {
             case 3:
                 //bank operations
             default:
-                System.out.println("UNKNOWN COMMAND");      //printing the error message
+                System.out.println("UNKNOWN COMMAND\n");      //printing the error message
                 UserScreen("null");   //calling the UserScreen method
         }
     }
@@ -81,9 +83,9 @@ public class Screen {
                 System.out.print("\n");
                 UserScreen("null");
             case 2:
-                //show balance
+                //delete user
             default:
-                System.out.println("UNKNOWN COMMAND");      //printing the error message
+                System.out.println("UNKNOWN COMMAND\n");      //printing the error message
                 AdminScreen();   //calling the UserScreen method
         }
     }
