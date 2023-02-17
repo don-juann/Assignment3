@@ -3,10 +3,10 @@ package com.company;
 import java.sql.SQLException;
 
 public abstract class Person implements IPerson{
-    private String firstname, lastname; //firstname and lastname are reserved words in SQL, so we use "firstname" and "lastname" instead
-    private String phone_number;    //phone number is a reserved word in SQL, so we use "phone_number" instead
-    private String password;    //password is a reserved word in SQL, so we use "password" instead
-
+    private String firstname;
+    private String lastname;
+    private String phone_number;
+    private String password;
     Person(){
         //no argument
     }

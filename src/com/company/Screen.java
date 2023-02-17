@@ -32,12 +32,10 @@ public class Screen {
                 SignIn signin = new SignIn();   //creating an object of the SignIn class
                 signin.user_input();    //calling the user_input method of the SignIn class
                 UserScreen("null");   //calling the UserScreen method
-
             case 2:
                 SignIn signin2 = new SignIn();
                 signin2.admin_input();
                 AdminScreen();
-
             default:
                 System.out.println("UNKNOWN COMMAND\n");
                 MainScreen();
@@ -49,21 +47,25 @@ public class Screen {
         signUp.user_input();    //calling the user_input method of the SignUp class
     }
     public void UserScreen(String phone_number){   //method for the user screen
+        DBMethods db = new DBMethods(); //creating an object of the DBMethods class
+        Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
+
         Scanner input = new Scanner(System.in); //creating an object of the Scanner class
-        System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Deposit/Withdraw Balance");    //printing the user screen
+        System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Sign Out");    //printing the user screen
         System.out.print("Choose option: ");    //printing the option to choose
         int choice = input.nextInt();   //getting the user input
         switch(choice){ //switch statement
             case 1:
-                DBMethods db = new DBMethods(); //creating an object of the DBMethods class
-                Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
                 db.read_data_of_client(connection, phone_number);
                 System.out.print("\n");
                 UserScreen("null");
             case 2:
                 //show balance
             case 3:
-                //bank operations
+                System.out.println("****************************");
+                System.out.println("USER SUCCESSFULLY SIGNED OUT");
+                System.out.println("****************************\n");
+                MainScreen();
             default:
                 System.out.println("UNKNOWN COMMAND\n");      //printing the error message
                 UserScreen("null");   //calling the UserScreen method
@@ -71,19 +73,33 @@ public class Screen {
     }
 
     public void AdminScreen(){
+        DBMethods db = new DBMethods();
+        Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
         Scanner input = new Scanner(System.in); //creating an object of the Scanner class
-        System.out.println("TAZA - ONLINE BANK\n1)Show All Clients Information\n2)Delete User\n");    //printing the user screen
+        System.out.println("TAZA - ONLINE BANK\n1)Show All Clients Information\n2)Delete User\n3)Sign Out");    //printing the user screen
         System.out.print("Choose option: ");    //printing the option to choose
         int choice = input.nextInt();   //getting the user input
         switch(choice){ //switch statement
             case 1:
-                DBMethods db = new DBMethods(); //creating an object of the DBMethods class
-                Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
                 db.read_data_of_clients(connection);
                 System.out.print("\n");
-                UserScreen("null");
+                AdminScreen();
             case 2:
-                //delete user
+                System.out.print("Enter ID Of The Client To Delete: ");
+                int input_id = input.nextInt();
+                try{
+                    db.delete_row_by_id(connection, input_id);
+                    System.out.println("Client Successfully Deleted\n");
+                    AdminScreen();
+                }catch(Exception e){
+                    System.out.println("There Is No Client With Such ID\n");
+                    AdminScreen();
+                }
+            case 3:
+                System.out.println("*************************************");
+                System.out.println("ADMINISTRATOR SUCCESSFULLY SIGNED OUT");
+                System.out.println("*************************************\n");
+                MainScreen();
             default:
                 System.out.println("UNKNOWN COMMAND\n");      //printing the error message
                 AdminScreen();   //calling the UserScreen method

@@ -5,16 +5,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-//database.createTable(connection, "employee");
-//database.insert_row(connection, "employee", "Zhan", "Astana");
-//database.update_name(connection, "employee", "Daulet", "Zhan" );
-//database.read_data(connection, "employee");
-//database.search_by_name(connection, "employee", "Zhan");
-//database.search_by_id(connection, "employee", 1);
-//database.delete_row_by_id(connection, "employee", 2);
-//database.read_data(connection, "employee");
-//database.delete_table(connection, "employee");
-
 public class DBMethods {
     public Connection connect_to_DB(String DBName, String Username, String password ){  //method to connect to the database
         Connection connection = null;   //creating a connection object
@@ -32,13 +22,34 @@ public class DBMethods {
         return connection;  //return the connection
     }
 
+    public void create_client_table(Connection connection){
+        Statement stmt;
+        try{
+            String query = "create table client(id SERIAL,firstname varchar(30),lastname varchar(30),phone_number varchar(15),date_of_birth varchar(15),password varchar(30), balance varchar(15), primary key(id));";
+            stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            System.out.println("Table client is created");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
 
+    public void create_admin_table(Connection connection){
+        Statement stmt;
+        try{
+            String query = "create table admin(id SERIAL,firstname varchar(30),lastname varchar(30),phone_number varchar(15),date_of_birth varchar(15),password varchar(30),primary key(id));";
+            stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+            System.out.println("Table admin is created");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
 
     public void insert_row(Connection connection, String firstname, String lastname, String phone_number, String DateOfBirth, String password){ //method to insert a row into the table
         Statement stmt; //creating a statement object
-        String table_name = "client";   //creating a string variable to store the table name
         try{    //try block
-            String query = String.format("insert into %s(firstname, lastname, phone_number, DateOfBirth, password) values('%s','%s','%s','%s','%s');", table_name, firstname, lastname, phone_number, DateOfBirth, password);   //creating a string variable to store the query
+            String query = String.format("insert into client(firstname, lastname, phone_number, Date_Of_Birth, password, balance) values('%s','%s','%s','%s','%s','%s');", firstname, lastname, phone_number, DateOfBirth, password, 0);   //creating a string variable to store the query
             stmt = connection.createStatement();    //creating a statement object
             stmt.executeUpdate(query);  //executing the query
         }catch(Exception e){        //catch block
@@ -50,9 +61,8 @@ public class DBMethods {
     public void read_data_of_client(Connection connection, String phone_number){   //method to read data from the table
         Statement stmt; //creating a statement object
         ResultSet rs = null;    //creating a result set object
-        String table_name = "client";
         try{    //try block
-            String query = String.format("select * from %s where phone_number = '%s'", table_name, phone_number);  //creating a string variable to store the query
+            String query = String.format("select * from client where phone_number = '%s'", phone_number);  //creating a string variable to store the query
             stmt = connection.createStatement();    //creating a statement object
             rs = stmt.executeQuery(query);  //executing the query
             if (rs.next()) {
@@ -70,9 +80,8 @@ public class DBMethods {
     public void read_data_of_clients(Connection connection){   //method to read data from the table
         Statement stmt; //creating a statement object
         ResultSet rs = null;    //creating a result set object
-        String table_name = "client";
         try{    //try block
-            String query = String.format("select * from %s", table_name);  //creating a string variable to store the query
+            String query = String.format("select * from client");  //creating a string variable to store the query
             stmt = connection.createStatement();    //creating a statement object
             rs = stmt.executeQuery(query);  //executing the query
             while (rs.next()) {
@@ -107,14 +116,12 @@ public class DBMethods {
             return false;
         }
     }
-
-    public void delete_row_by_id(Connection connection, String table_name, int id){
+    public void delete_row_by_id(Connection connection, int id){
         Statement stmt;
         try{
-            String query = String.format("delete from %s where id = '%s'", table_name, id);
+            String query = String.format("delete from client where id = '%s'", id);
             stmt = connection.createStatement();
             stmt.executeUpdate(query);
-            System.out.println("Data Deleted");
         }catch(Exception e){
             System.out.println(e);
         }
@@ -128,7 +135,3 @@ public class DBMethods {
         }
     }
 }
-
-/*
-
- * */

@@ -11,7 +11,7 @@ public class SignIn {
             String password1 = input.next();    //read user input
             Client client = new Client();   //create client object
             if(client.signin_check(phone_number, password1)) {  //check if the user is signed in
-                System.out.println("USER SUCCESSFULLY SIGNED IN\n");    //print message
+                System.out.println("USER SUCCESSFULLY SIGNED IN");    //print message
                 Screen screen = new Screen();       //create screen object
                 screen.UserScreen(phone_number);
             } else{ //if the user is not signed in
@@ -33,7 +33,7 @@ public class SignIn {
             String password1 = input.next();    //read admin input
             Admin admin = new Admin();   //create client object
             if(admin.signin_check(phone_number, password1)) {  //check if the admin is signed in
-                System.out.println("ADMIN SUCCESSFULLY SIGNED IN\n");    //print message
+                System.out.println("ADMIN SUCCESSFULLY SIGNED IN");    //print message
                 Screen screen = new Screen();       //create screen object
                 screen.AdminScreen();
             } else{ //if the user is not signed in
