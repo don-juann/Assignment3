@@ -5,8 +5,6 @@ import java.sql.SQLException;
 
 public class Client extends Person{ //inheritance
     private String DateOfBirth;
-    private double balance;
-
     Client(){
         //no argument
     }
@@ -23,13 +21,6 @@ public class Client extends Person{ //inheritance
     public void setDateOfBirth(String dateOfBirth) {    //setter method
         DateOfBirth = dateOfBirth; //setting the value of the date of birth
     }
-
-    public double getBalance() {
-        return balance;
-    }   //end of getter method
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }   //end of setter method
 
     @Override
     public boolean signin_check(String phone_number, String password) throws SQLException {

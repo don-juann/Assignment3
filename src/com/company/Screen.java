@@ -51,7 +51,7 @@ public class Screen {
         Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
 
         Scanner input = new Scanner(System.in); //creating an object of the Scanner class
-        System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Sign Out");    //printing the user screen
+        System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Deposit Money\n4)Withdraw Money\n5)Sign Out");    //printing the user screen
         System.out.print("Choose option: ");    //printing the option to choose
         int choice = input.nextInt();   //getting the user input
         switch(choice){ //switch statement
@@ -61,7 +61,19 @@ public class Screen {
                 UserScreen("null");
             case 2:
                 //show balance
+                bankOperations bank = new bankOperations();
+                bank.show_balance(connection, phone_number);
+                UserScreen("null");
             case 3:
+                //deposit money
+                bankOperations bank2 = new bankOperations();
+                System.out.print("Enter Amount To Deposit: ");
+                double amount = input.nextDouble();
+                bank2.insert_money(connection, phone_number, amount);
+                UserScreen("null");
+            case 4:
+                //withdraw money
+            case 5:
                 System.out.println("****************************");
                 System.out.println("USER SUCCESSFULLY SIGNED OUT");
                 System.out.println("****************************\n");

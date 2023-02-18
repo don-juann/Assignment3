@@ -6,7 +6,7 @@ import java.time.Period;
 import java.util.Objects;
 
 public class DBMethods {
-    public Connection connect_to_DB(String DBName, String Username, String password ){  //method to connect to the database
+    public Connection connect_to_DB(String DBName, String Username, String password ) {  //method to connect to the database
         Connection connection = null;   //creating a connection object
         try {   //try block
             Class.forName("org.postgresql.Driver"); //loading the driver
@@ -48,10 +48,12 @@ public class DBMethods {
 
     public void insert_row(Connection connection, String firstname, String lastname, String phone_number, String DateOfBirth, String password){ //method to insert a row into the table
         Statement stmt; //creating a statement object
+        double balance = 0.0;   //creating a double variable to store the balance
         try{    //try block
-            String query = String.format("insert into client(firstname, lastname, phone_number, Date_Of_Birth, password, balance) values('%s','%s','%s','%s','%s','%s');", firstname, lastname, phone_number, DateOfBirth, password, 0);   //creating a string variable to store the query
+            String query = String.format("insert into client(firstname, lastname, phone_number, Date_Of_Birth, password, balance) values('%s','%s','%s','%s','%s','%s');", firstname, lastname, phone_number, DateOfBirth, password, balance);   //creating a string variable to store the query
             stmt = connection.createStatement();    //creating a statement object
             stmt.executeUpdate(query);  //executing the query
+
         }catch(Exception e){        //catch block
             System.out.println(e);  //print the exception
         }   //end of try-catch block
