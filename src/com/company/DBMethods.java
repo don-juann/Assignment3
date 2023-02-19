@@ -77,7 +77,6 @@ public class DBMethods {
                 System.out.println(rs.getString("lastname"));  //print the lastname
                 System.out.println("Phone Number: " + rs.getString("phone_number"));  //print the phone_number
                 System.out.println("Age:" + calculateAge(LocalDate.parse(rs.getString("Date_Of_Birth")))+ " years old");   //print the DateOfBirth
-                System.out.println("Balance: " + rs.getString("balance")+ " tenge");
             }
         }catch(Exception e){    //catch block
             System.out.println(e);  //print the exception

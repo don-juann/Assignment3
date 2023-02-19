@@ -41,7 +41,7 @@ public class SignUp {
         String phone_number= input.next();  //read user input
 
         try{
-            if(phone_number.charAt(0)==8 && phone_number.length()==11) {
+            if(phone_number.charAt(0)=='8' && phone_number.length()==11) {
                 if (phone_number_exists(phone_number)) {
                     System.out.println("************************************");
                     System.out.println("USER WITH THIS NUMBER ALREADY EXISTS");

@@ -16,29 +16,33 @@ public class BankOperations {
         }
     }
     public void insert_money(Connection conn, String phone_number, double deposit) {
-        try {
-            String GetBalanceQuery = String.format("SELECT balance FROM client WHERE phone_number ='%s';", phone_number);    //creating a string variable to store the query
-            Statement stmt = conn.createStatement();  //creating a statement object
-            ResultSet rs = stmt.executeQuery(GetBalanceQuery);   //executing the query
-            if(rs.next()){
-                double amount = rs.getDouble("balance") + deposit;    //creating a double variable to store the amount
-                String insertMoneyQuery = String.format("UPDATE client SET balance='%s' WHERE phone_number='%s'", amount, phone_number);         //creating a string variable to store the query
-                stmt = conn.createStatement();  //creating a statement object
-                stmt.executeUpdate(insertMoneyQuery); //executing the query
-                System.out.println("\nSuccessfully deposited " + deposit + " tenge");  //print a message
+        if(deposit <= 300000){
+            try {
+                String GetBalanceQuery = String.format("SELECT balance FROM client WHERE phone_number ='%s';", phone_number);    //creating a string variable to store the query
+                Statement stmt = conn.createStatement();  //creating a statement object
+                ResultSet rs = stmt.executeQuery(GetBalanceQuery);   //executing the query
+                if (rs.next()) {
+                    double amount = rs.getDouble("balance") + deposit;    //creating a double variable to store the amount
+                    String insertMoneyQuery = String.format("UPDATE client SET balance='%s' WHERE phone_number='%s'", amount, phone_number);         //creating a string variable to store the query
+                    stmt = conn.createStatement();  //creating a statement object
+                    stmt.executeUpdate(insertMoneyQuery); //executing the query
+                    System.out.println("\nSuccessfully deposited " + deposit + " tenge");  //print a message
+                }
+            } catch (Exception e) {
+                System.out.println(e);
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        }else{
+            System.out.println("\n****************************************************");
+            System.out.println("YOU CAN DEPOSIT NO MORE THAN 300,000 TENGE AT A TIME");
+            System.out.println("****************************************************");
         }
 
     }
     public void withdrawBalance(Connection connection, String phone_number, double sum){
-        Statement stmt; //creating a statement object
-        ResultSet rs = null;    //creating a result set object
         try{    //try block
             String query = String.format("select balance from client where phone_number = '%s'", phone_number);  //creating a string variable to store the query
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery(query);
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
             rs.next();
             double bl = Double.parseDouble(rs.getString("balance"));
             if( bl >= sum){
@@ -47,11 +51,17 @@ public class BankOperations {
                 stmt = connection.createStatement();
                 stmt.executeUpdate(query);
                 System.out.println("\nSuccessfully withdrawn " + sum + " tenge");  //print a message
+            }else if(bl < sum){
+                System.out.println("\n******************");
+                System.out.println("NOT ENOUGH BALANCE");  //print the exception
+                System.out.println("******************");
+            }else{
+                System.out.println("\n***************");
+                System.out.println("INCORRECT INPUT");  //print the exception
+                System.out.println("***************");
             }
         }catch(Exception e){    //catch block
-            System.out.println("\n******************");
-            System.out.println("NOT ENOUGH BALANCE");  //print the exception
-            System.out.println("******************\n");
+            System.out.println(e);
         }
     }
 }

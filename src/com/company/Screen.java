@@ -71,7 +71,7 @@ public class Screen {
             case 4:
                 //withdraw money
                 BankOperations bank3 = new BankOperations();
-                System.out.println("\nEnter Amount To Withdraw: ");
+                System.out.print("Enter Amount To Withdraw: ");
                 double sum = input.nextDouble();
                 bank3.withdrawBalance(connection, phone_number, sum);
                 UserScreen(phone_number);
