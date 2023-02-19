@@ -3,6 +3,8 @@ package com.company;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 import java.util.Scanner;
 public class SignUp {
@@ -18,22 +20,46 @@ public class SignUp {
         System.out.print("Date of Birth (YYYY-MM-DD): ");   //prompt user to enter date of birth
         String DateOfBirth = input.next();  //read user input
 
+        Screen scr = new Screen();  //create screen object
+
+        try{
+            LocalDate currentDate = LocalDate.now();
+            if(Period.between(LocalDate.parse(DateOfBirth), currentDate).getYears() <= 16){
+                System.out.println("\n*********************************");
+                System.out.println("USER IS NOT OLD ENOUGH TO SIGN UP");
+                System.out.println("*********************************\n");
+                scr.MainScreen();
+            }
+        }catch(Exception e){
+            System.out.println("\n**************************");
+            System.out.println("INCORRECT INPUT, TRY AGAIN");
+            System.out.println("**************************\n");
+            user_input();
+        }
+
         System.out.print("Phone number(starting with 8): ");    //prompt user to enter phone number
         String phone_number= input.next();  //read user input
 
-        Screen scr = new Screen();  //create screen object
+        try{
+            if(phone_number.charAt(0)==8 && phone_number.length()==11) {
+                if (phone_number_exists(phone_number)) {
+                    System.out.println("************************************");
+                    System.out.println("USER WITH THIS NUMBER ALREADY EXISTS");
+                    System.out.println("************************************\n");
+                    scr.MainScreen();
+                } else {
+                    password_check();   //call the password_check method
 
-        if(phone_number_exists(phone_number)){
-            System.out.println("************************************");
-            System.out.println("USER WITH THIS NUMBER ALREADY EXISTS");
-            System.out.println("************************************\n");
-            scr.MainScreen();
-        }else{
-            password_check();   //call the password_check method
-
-            Client cl = new Client(firstname, lastname, phone_number, DateOfBirth, thepassword);    //create client object
-            cl.setFields(); //call the setFields method of the Client class
-            scr.MainScreen();   //call the MainScreen method of the Screen class
+                    Client cl = new Client(firstname, lastname, phone_number, DateOfBirth, thepassword);    //create client object
+                    cl.setFields(); //call the setFields method of the Client class
+                    scr.MainScreen();   //call the MainScreen method of the Screen class
+                }
+            }
+        }catch(Exception e){
+            System.out.println("\n**************************");
+            System.out.println("INCORRECT INPUT, TRY AGAIN");
+            System.out.println("**************************\n");
+            user_input();
         }
     }
 
