@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.Period;
@@ -126,11 +127,22 @@ public class DBMethods {
         }
     }
     public void delete_row_by_id(Connection connection, int id){
-        Statement stmt;
         try{
-            String query = String.format("delete from client where id = '%s'", id);
-            stmt = connection.createStatement();
-            stmt.executeUpdate(query);
+            String findID = String.format("select * from client where id = '%s'", id);
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(findID);
+            if(rs.next()){
+                String query = String.format("delete from client where id = '%s'", id);
+                Statement stmt2 = connection.createStatement();
+                stmt2.executeUpdate(query);
+                System.out.println("\n***************************");
+                System.out.println("USER SUCCESSFULLY DELETED");
+                System.out.println("***************************");
+            }else{
+                System.out.println("\n*****************************");
+                System.out.println("THERE IS NO USER WITH SUCH ID");
+                System.out.println("*****************************");
+            }
         }catch(Exception e){
             System.out.println(e);
         }

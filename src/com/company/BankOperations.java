@@ -45,12 +45,16 @@ public class BankOperations {
             ResultSet rs = stmt.executeQuery(query);
             rs.next();
             double bl = Double.parseDouble(rs.getString("balance"));
-            if( bl >= sum){
+            if( bl >= sum && sum <=300000){
                 bl -= sum;
                 query = String.format("update client set balance='%s' where phone_number='%s'", bl, phone_number);
                 stmt = connection.createStatement();
                 stmt.executeUpdate(query);
                 System.out.println("\nSuccessfully withdrawn " + sum + " tenge");  //print a message
+            }else if(bl >= sum && sum > 300000){
+                System.out.println("\n*****************************************************");
+                System.out.println("YOU CAN WITHDRAW NO MORE THAN 300,000 TENGE AT A TIME");  //print the exception
+                System.out.println("*****************************************************");
             }else if(bl < sum){
                 System.out.println("\n******************");
                 System.out.println("NOT ENOUGH BALANCE");  //print the exception
@@ -61,7 +65,9 @@ public class BankOperations {
                 System.out.println("***************");
             }
         }catch(Exception e){    //catch block
-            System.out.println(e);
+            System.out.println("\n***************");
+            System.out.println("INCORRECT INPUT");  //print the exception
+            System.out.println("***************");
         }
     }
 }

@@ -69,7 +69,6 @@ public class Screen {
                 bank2.insert_money(connection, phone_number, amount);
                 UserScreen(phone_number);
             case 4:
-                //withdraw money
                 BankOperations bank3 = new BankOperations();
                 System.out.print("Enter Amount To Withdraw: ");
                 double sum = input.nextDouble();
@@ -102,7 +101,6 @@ public class Screen {
                 int input_id = input.nextInt();
                 try{
                     db.delete_row_by_id(connection, input_id);
-                    System.out.println("Client Successfully Deleted\n");
                     AdminScreen();
                 }catch(Exception e){
                     System.out.println("There Is No Client With Such ID\n");
