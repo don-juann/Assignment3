@@ -72,11 +72,11 @@ public class DBMethods {
             stmt = connection.createStatement();    //creating a statement object
             rs = stmt.executeQuery(query);  //executing the query
             if (rs.next()) {
-                System.out.println("ID: " + rs.getString("id"));  //print the client_id
+                System.out.println("\nID: " + rs.getString("id"));  //print the client_id
                 System.out.print(rs.getString("firstname")+ " ");   //print the firstname
                 System.out.println(rs.getString("lastname"));  //print the lastname
                 System.out.println("Phone Number: " + rs.getString("phone_number"));  //print the phone_number
-                System.out.println("Age:" + calculateAge(LocalDate.parse(rs.getString("DateOfBirth")))+ " years old");   //print the DateOfBirth
+                System.out.println("Age:" + calculateAge(LocalDate.parse(rs.getString("Date_Of_Birth")))+ " years old");   //print the DateOfBirth
             }
         }catch(Exception e){    //catch block
             System.out.println(e);  //print the exception
@@ -90,13 +90,16 @@ public class DBMethods {
             String query = String.format("select * from client");  //creating a string variable to store the query
             stmt = connection.createStatement();    //creating a statement object
             rs = stmt.executeQuery(query);  //executing the query
+            System.out.println("\n******************************");
             while (rs.next()) {
-                System.out.println("ID: " + rs.getString("id"));  //print the client_id
+                System.out.println("\nID: " + rs.getString("id"));  //print the client_id
                 System.out.print(rs.getString("firstname")+ " ");   //print the firstname
                 System.out.println(rs.getString("lastname"));  //print the lastname
                 System.out.println("Phone Number: " + rs.getString("phone_number"));  //print the phone_number
-                System.out.println("Age:" + calculateAge(LocalDate.parse(rs.getString("DateOfBirth")))+ " years old\n");   //print the DateOfBirth
+                System.out.println("Age: " + calculateAge(LocalDate.parse(rs.getString("Date_Of_Birth")))+ " years old");   //print the age
+                System.out.println("Balance: " + rs.getString("balance") + " tenge");
             }
+            System.out.println("\n******************************");
         }catch(Exception e){    //catch block
             System.out.println(e);  //print the exception
         }

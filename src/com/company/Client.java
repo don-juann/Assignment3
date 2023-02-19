@@ -4,22 +4,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Client extends Person{ //inheritance
-    private String DateOfBirth;
+    private String Date_Of_Birth;
     Client(){
         //no argument
     }
     Client(String firstname, String lastname, String phone_number, String DateOfBirth, String password) {//constructor
         super(firstname, lastname, phone_number, password);//calling the constructor of the parent class
         setDateOfBirth(DateOfBirth);//calling the setter method of the parent class
-        //setPassword(password);
     }
 
-    public String getDateOfBirth() {
-        return DateOfBirth;
+    public String getDate_Of_Birth() {
+        return Date_Of_Birth;
     }//end of getter method
 
     public void setDateOfBirth(String dateOfBirth) {    //setter method
-        DateOfBirth = dateOfBirth; //setting the value of the date of birth
+        Date_Of_Birth = dateOfBirth; //setting the value of the date of birth
     }
 
     @Override
@@ -32,6 +31,6 @@ public class Client extends Person{ //inheritance
     public void setFields(){    //method to set the fields of the client
         DBMethods database = new DBMethods();   //creating an object of the DBMethods class
         Connection connection = database.connect_to_DB();   //connecting to the database
-        database.insert_row(connection, getFirstname(), getLastname(), getPhone_number(), getDateOfBirth(), getPassword());  //inserting the client's details into the database
+        database.insert_row(connection, getFirstname(), getLastname(), getPhone_number(), getDate_Of_Birth(), getPassword());  //inserting the client's details into the database
     }
 }

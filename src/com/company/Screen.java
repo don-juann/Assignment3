@@ -17,7 +17,7 @@ public class Screen {
             case 3:
                 System.exit(0);
             default:    //if the user chooses something else
-                System.out.println("UNKNOWN COMMAND\n");  //printing the error message
+                System.out.println("\nUNKNOWN COMMAND");  //printing the error message
                 MainScreen();   //calling the MainScreen method
         }
     }
@@ -27,17 +27,17 @@ public class Screen {
         System.out.println("\nTAZA - ONLINE BANK\n1)SIGN IN as Client\n2)SIGN IN as Administrator");    //printing the sign in screen
         System.out.print("Choose option: ");    //printing the option to choose
         int choice = input.nextInt();   //getting the user input
+        SignIn signin = new SignIn();   //creating an object of the SignIn class
+
         switch(choice){ //switch statement
             case 1: //if the user chooses 1
-                SignIn signin = new SignIn();   //creating an object of the SignIn class
                 signin.user_input();    //calling the user_input method of the SignIn class
-                UserScreen("null");   //calling the UserScreen method
+                UserScreen(null);   //calling the UserScreen method
             case 2:
-                SignIn signin2 = new SignIn();
-                signin2.admin_input();
+                signin.admin_input();
                 AdminScreen();
             default:
-                System.out.println("UNKNOWN COMMAND\n");
+                System.out.println("\nUNKNOWN COMMAND");  //printing the error message
                 MainScreen();
         }
     }
@@ -57,7 +57,6 @@ public class Screen {
         switch(choice){ //switch statement
             case 1:
                 db.read_data_of_client(connection, phone_number);
-                System.out.print("\n");
                 UserScreen(phone_number);
             case 2:
                 BankOperations bank = new BankOperations();
@@ -72,12 +71,12 @@ public class Screen {
             case 4:
                 //withdraw money
             case 5:
-                System.out.println("****************************");
+                System.out.println("\n****************************");
                 System.out.println("USER SUCCESSFULLY SIGNED OUT");
                 System.out.println("****************************\n");
                 MainScreen();
             default:
-                System.out.println("UNKNOWN COMMAND\n");      //printing the error message
+                System.out.println("\nUNKNOWN COMMAND");  //printing the error message
                 UserScreen("null");   //calling the UserScreen method
         }
     }
@@ -105,12 +104,12 @@ public class Screen {
                     AdminScreen();
                 }
             case 3:
-                System.out.println("*************************************");
+                System.out.println("\n*************************************");
                 System.out.println("ADMINISTRATOR SUCCESSFULLY SIGNED OUT");
                 System.out.println("*************************************\n");
                 MainScreen();
             default:
-                System.out.println("UNKNOWN COMMAND\n");      //printing the error message
+                System.out.println("\nUNKNOWN COMMAND");  //printing the error message
                 AdminScreen();   //calling the UserScreen method
         }
     }

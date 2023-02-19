@@ -64,7 +64,7 @@ public class SignUp {
             thepassword = password2;    //assign the password to the global variable
             System.out.println("\n*******************************");
             System.out.println("NEW USER SUCCESSFULLY SIGNED UP");  //print message
-            System.out.println("*******************************\n");
+            System.out.println("*******************************");
         }else{  //if the passwords do not match
             System.out.println("PASSWORDS DO NOT MATCH, TRY AGAIN");    //print message
             password_check();   //call the password_check method
