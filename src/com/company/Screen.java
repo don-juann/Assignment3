@@ -64,12 +64,17 @@ public class Screen {
                 UserScreen(phone_number);
             case 3:
                 BankOperations bank2 = new BankOperations();
-                System.out.print("Enter Amount To Deposit: ");
+                System.out.print("\nEnter Amount To Deposit: ");
                 double amount = input.nextDouble();
                 bank2.insert_money(connection, phone_number, amount);
                 UserScreen(phone_number);
             case 4:
                 //withdraw money
+                BankOperations bank3 = new BankOperations();
+                System.out.println("\nEnter Amount To Withdraw: ");
+                double sum = input.nextDouble();
+                bank3.withdrawBalance(connection, phone_number, sum);
+                UserScreen(phone_number);
             case 5:
                 System.out.println("\n****************************");
                 System.out.println("USER SUCCESSFULLY SIGNED OUT");
