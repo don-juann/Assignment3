@@ -6,11 +6,15 @@ import java.time.Period;
 import java.util.Objects;
 
 public class DBMethods {
-    public Connection connect_to_DB(String DBName, String Username, String password ) {  //method to connect to the database
+    public Connection connect_to_DB() {  //method to connect to the database
         Connection connection = null;   //creating a connection object
+        String DBName = "DatabaseOne";
+        String Username = "postgres";
+        String password = "0311";
+
         try {   //try block
             Class.forName("org.postgresql.Driver"); //loading the driver
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+DBName, Username, password);   //connecting to the database
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+ DBName, Username, password);   //connecting to the database
             if(connection!=null){   //if the connection is not null
                 System.out.println(" ");    //print a blank line
             }else{  //if the connection is null

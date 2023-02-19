@@ -1,5 +1,8 @@
 package com.company;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Objects;
 import java.util.Scanner;
 public class SignUp {
@@ -18,14 +21,38 @@ public class SignUp {
         System.out.print("Phone number(starting with 8): ");    //prompt user to enter phone number
         String phone_number= input.next();  //read user input
 
-        password_check();   //call the password_check method
-
-        Client cl = new Client(firstname, lastname, phone_number, DateOfBirth, thepassword);    //create client object
-        cl.setFields(); //call the setFields method of the Client class
-
         Screen scr = new Screen();  //create screen object
-        scr.MainScreen();   //call the MainScreen method of the Screen class
+
+        if(phone_number_exists(phone_number)){
+            System.out.println("************************************");
+            System.out.println("USER WITH THIS NUMBER ALREADY EXISTS");
+            System.out.println("************************************\n");
+            scr.MainScreen();
+        }else{
+            password_check();   //call the password_check method
+
+            Client cl = new Client(firstname, lastname, phone_number, DateOfBirth, thepassword);    //create client object
+            cl.setFields(); //call the setFields method of the Client class
+            scr.MainScreen();   //call the MainScreen method of the Screen class
+        }
     }
+
+    public boolean phone_number_exists(String phone_number) {
+        DBMethods db = new DBMethods();
+        Connection connection = db.connect_to_DB();
+            try{
+                String query = String.format("select * from client where phone_number = '%s'", phone_number);
+                Statement stmt = connection.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                if(rs.next()){
+                    return true;
+                }
+            }catch(Exception e){
+                System.out.println(e);
+            }
+        return false;
+    }
+
     public void password_check(){   //method to check if the passwords match
         Scanner input = new Scanner(System.in); //scanner object
         System.out.print("Enter your new password: ");  //prompt user to enter password.

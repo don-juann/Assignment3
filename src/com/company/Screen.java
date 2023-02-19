@@ -48,7 +48,7 @@ public class Screen {
     }
     public void UserScreen(String phone_number){   //method for the user screen
         DBMethods db = new DBMethods(); //creating an object of the DBMethods class
-        Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
+        Connection connection = db.connect_to_DB(); //creating an object of the Connection class
 
         Scanner input = new Scanner(System.in); //creating an object of the Scanner class
         System.out.println("TAZA - ONLINE BANK\n1)Show Client Information\n2)Show Balance\n3)Deposit Money\n4)Withdraw Money\n5)Sign Out");    //printing the user screen
@@ -58,19 +58,17 @@ public class Screen {
             case 1:
                 db.read_data_of_client(connection, phone_number);
                 System.out.print("\n");
-                UserScreen("null");
+                UserScreen(phone_number);
             case 2:
-                //show balance
-                bankOperations bank = new bankOperations();
+                BankOperations bank = new BankOperations();
                 bank.show_balance(connection, phone_number);
-                UserScreen("null");
+                UserScreen(phone_number);
             case 3:
-                //deposit money
-                bankOperations bank2 = new bankOperations();
+                BankOperations bank2 = new BankOperations();
                 System.out.print("Enter Amount To Deposit: ");
                 double amount = input.nextDouble();
                 bank2.insert_money(connection, phone_number, amount);
-                UserScreen("null");
+                UserScreen(phone_number);
             case 4:
                 //withdraw money
             case 5:
@@ -83,10 +81,9 @@ public class Screen {
                 UserScreen("null");   //calling the UserScreen method
         }
     }
-
     public void AdminScreen(){
         DBMethods db = new DBMethods();
-        Connection connection = db.connect_to_DB("DatabaseOne", "postgres", "0311"); //creating an object of the Connection class
+        Connection connection = db.connect_to_DB(); //creating an object of the Connection class
         Scanner input = new Scanner(System.in); //creating an object of the Scanner class
         System.out.println("TAZA - ONLINE BANK\n1)Show All Clients Information\n2)Delete User\n3)Sign Out");    //printing the user screen
         System.out.print("Choose option: ");    //printing the option to choose

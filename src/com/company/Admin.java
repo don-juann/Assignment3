@@ -13,7 +13,7 @@ public class Admin extends Person{
     @Override
     public  boolean signin_check(String phone_number, String password) throws SQLException{
         DBMethods database = new DBMethods();
-        Connection connection = database.connect_to_DB("DatabaseOne", "postgres", "0311");
+        Connection connection = database.connect_to_DB();
         return database.checkAdmin(connection, phone_number, password);
     }
 }
